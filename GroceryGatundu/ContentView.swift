@@ -46,16 +46,25 @@ struct ContentView: View {
                         //  n
                         Text("\(stud.key)")
                     }
+                    .swipeActions{
+                        Button("delete"){
+                            stud.deleteFromFirebase()
+                            //    students.remove(at: //students.firstIndex(of: stud))
+                        }
+                        
+                    }
+                    .padding()
+                    
+                    
+                    
                     
                 }
-                .padding()
-                .onAppear(){
-                    firebaseStuff()
-                }
+                
                 
             }
-            
-            
+            .onAppear(){
+                firebaseStuff()
+            }
         }
     }
         func firebaseStuff(){
@@ -85,8 +94,28 @@ struct ContentView: View {
                 
             })
             
+            ref.child("grocery2").observe(.childRemoved, with: { (snapshot) in
+                // snapshot is a dictionary with a key and a value
+                
+                
+                let k = snapshot.key
+                
+                // looping through student to find the key
+                for i in 0..<grocerys.count{
+                    if grocerys[i].key == k{
+                        grocerys.remove(at: i)
+                        break
+                    }
+                }
+                
+                // adds the name to an array if the name is not already there
+                
+                
+            })
+            
         }
-    
+        
+        
     
 }
 
