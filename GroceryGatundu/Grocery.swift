@@ -54,7 +54,18 @@ class Grocery{
         //key = ref.child("students2").childByAutoId().key?? "0"
     }
     func deleteFromFirebase(){
-        ref.child("students2").child(key).removeValue()
+        ref.child("grocery2").child(key).removeValue()
     }
+    
+    func updateFirebase() {
+        let dict: [String: Any] = [
+            "name": name,
+            "count": count,
+            "price": price
+        ]
+
+        ref.child("grocery2").child(key).setValue(dict)
+    }
+
     
 }
